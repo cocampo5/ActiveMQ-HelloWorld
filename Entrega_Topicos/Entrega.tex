@@ -1,0 +1,91 @@
+\documentclass[]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} %Para insertar imágenes
+\graphicspath{ {images/} }
+\usepackage[spanish]{babel}
+\usepackage{subfigure}
+\usepackage[section]{placeins}
+\usepackage{listings}
+%\usepackage{multicol}
+%\usepackage{minted}
+%\usepackage{amssymb}% http://ctan.org/pkg/amssymb
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{geometry}
+\usepackage{helvet}
+\usepackage{hyperref}
+\renewcommand{\familydefault}{\sfdefault}
+\geometry{
+letterpaper,
+total={215.9mm,279.4mm},
+left=30mm,
+right=30mm,
+top=30mm,
+bottom=30mm,
+}
+\title{Ejecución del HelloWorld de ActiveMQ}
+\author{
+  Gutierrez Gómez,Mateo\\
+  \texttt{mgutie22@eafit.edu.co}
+  \and
+  Arango Carvajal,César\\
+  \texttt{carang44@eafit.edu.co}
+  \and
+  Ocampo Quintero, Cristóbal\\
+  \texttt{cocampo5@eafit.edu.co}
+}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Introducción y pre requisitos}
+Los requisitos mínimos para la ejecución del ejemplo son:
+\begin{itemize}
+\item Java 1.7 o mayor.
+\item Apache ActiveMQ descargado y extraido.
+\end{itemize}
+\section{Compilación}
+\begin{enumerate}
+\item Compilar proyecto en NetBeans
+Simplemente abrir el proyecto en NetBeans y luego click derecho sobre el proyecto y la opción 'Clean and Build'
+\item Compilar manualmente los archivos fuentes
+Para compilar los archivos ejecutar los siguientes comandos dentro de la carpeta "src" del proyecto, el proyecto se descarga desde el repositorio alojado en GitHub:
+\lstset{language=bash} 
+\begin{lstlisting}
+$ git clone https://github.com/cocampo5/ActiveMQ-HelloWorld.git
+\end{lstlisting}
+Luego dentro la estructura del proyecto se busca la carpeta 'src' y se ejecuta para cada archivo .java el siguiente código
+\begin{lstlisting}
+$ javac -cp [path_al.jar_de_activemq]:. Clase.java
+\end{lstlisting}
+\end{enumerate}
+\section{Ejecución}
+Primero que todo en una consola entrar al directorio bin del ActiveMQ y ejecutar en Linux:
+\begin{lstlisting}
+$ sudo .\activemq console 
+\end{lstlisting}
+o Windows
+\begin{lstlisting}
+$ activemq start
+\end{lstlisting}
+La ejecución depende de si la compilación fue realizada en NetBeans o manual
+\begin{enumerate}
+\item Compilado por NetBeans
+Si el proyecto se compiló directamente entrar a build/classes (deben haber cinco .class).
+\item Compilado manual
+Si el proyecto se compiló manualmente entrar a la carpeta src (donde ahora deben haber además de los .java otros cinco .class).
+\end{enumerate}
+Ya estando en las respectivas carpeta se ejecutará en dos consolas diferentes:
+\begin{itemize}
+\item Para Productor/Consumidor con Colas
+\begin{lstlisting}
+java -cp [path_al.jar_de_activemq]:. EjemploConsumidor
+java -cp [path_al.jar_de_activemq]:. EjemploProductor
+\end{lstlisting}
+\item Para Productor/Consumidor con Tópicos
+\begin{lstlisting}
+java -cp [path_al.jar_de_activemq]:. TopicListener
+java -cp [path_al.jar_de_activemq]:. TopicPublisher
+\end{lstlisting}
+\end{itemize}
+Nota: la ejecución es prácticamente igual en el servidor.
+\end{document}
